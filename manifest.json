@@ -1,0 +1,10 @@
+{
+  "name": "Bulk Image importer",
+  "id": "1266419660538162271",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [ "figma", "figjam" ],
+  "ui": "dist/index.html"
+}
