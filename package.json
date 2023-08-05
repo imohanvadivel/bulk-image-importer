@@ -1,7 +1,5 @@
 {
-  "name": "template",
-  "private": true,
-  "version": "0.0.0",
+  "name": "bulk-image-importer",
   "type": "module",
   "scripts": {
     "check": "svelte-check --tsconfig ./tsconfig.json",
