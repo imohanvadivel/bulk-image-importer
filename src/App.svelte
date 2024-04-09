@@ -1,6 +1,6 @@
 <script lang="ts">
     import { postFigma } from "$lib/util.ts";
-    import { Textarea, Button, Label, Input, Checkbox, SectionTitle } from "figsvelte";
+    import { Textarea, Button, Input, Checkbox, SectionTitle } from "figblocks";
     let hasDelimiter = false;
     let hasPrefix = false;
     let data = "";
@@ -30,7 +30,7 @@
 
         let urlAry = data.split(selDelimiter);
         if (hasPrefix) urlAry = urlAry.map((e) => prefix.trim() + e.trim());
-        
+
         // Filter out valid URL
         urlAry = urlAry.filter((e) => isValidURL(e));
         postFigma(urlAry);
@@ -40,7 +40,7 @@
 <main>
     <SectionTitle>URLs</SectionTitle>
 
-    <Textarea bind:value={data} class="flex-grow" placeholder="Enter the url seperated by the comma" />
+    <Textarea bind:value={data} class="textarea" placeholder="Enter the url seperated by the comma" />
 
     <section>
         <Checkbox bind:checked={hasDelimiter}>Cutom delimiter</Checkbox>
@@ -56,7 +56,7 @@
         {/if}
     </section>
 
-    <Button on:click={handleClick} class="mt-xsmall">Import Images</Button>
+    <Button on:click={handleClick} class="button">Import Images</Button>
 </main>
 
 <style>
@@ -65,5 +65,11 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+    }
+    :global(.textarea) {
+        flex-grow: 1;
+    }
+    :global(.button) {
+        margin-top: var(--figma-size-xsmall);
     }
 </style>
