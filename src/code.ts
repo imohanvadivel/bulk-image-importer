@@ -22,6 +22,7 @@ figma.ui.onmessage = async (msg) => {
     dataAry = dataAry.map((e) => e.value);
 
     let totalImageCount = dataAry.length;
+    let imageIndex = 0;
 
     const bounds = figma.viewport.bounds;
 
@@ -34,11 +35,13 @@ figma.ui.onmessage = async (msg) => {
         let prevDimension = [];
 
         for (let m = 0; m < imgAry.length; m++) {
+            let url = msg[imageIndex++];
+
             const { width, height } = await imgAry[m].getSizeAsync();
 
             if (m === 0) {
                 prevDimension.push({ x, y, width, height });
-                appendImage(imgAry[m], x, y, width, height);
+                appendImage(imgAry[m], x, y, width, height, url);
                 continue;
             }
 
@@ -47,7 +50,7 @@ figma.ui.onmessage = async (msg) => {
             y = prev.y;
             prevDimension.push({ x, y, width, height });
 
-            appendImage(imgAry[m], x, y, width, height);
+            appendImage(imgAry[m], x, y, width, height, url);
         }
 
         x = prevDimension[0].x;
@@ -62,12 +65,13 @@ async function getImageData(url: string) {
     return await figma.createImageAsync(url);
 }
 
-function appendImage(image: Image, x: number, y: number, width: number, height: number) {
+function appendImage(image: Image, x: number, y: number, width: number, height: number, url: string) {
     const node = figma.createRectangle();
     figmaNodes.push(node);
     node.resize(width, height);
     node.x = x;
     node.y = y;
+    node.name = url;
 
     node.fills = [
         {
